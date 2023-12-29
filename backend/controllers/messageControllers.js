@@ -23,8 +23,6 @@ const allMessages = asyncHandler(async (req, res) => {
 //@access          Protected
 const sendMessage = asyncHandler(async (req, res) => {
   const { content, chatId } = req.body;
-  console.log(content)
-
   if (!content || !chatId) {
     console.log("Invalid data passed into request");
     return res.sendStatus(400);
@@ -38,8 +36,6 @@ const sendMessage = asyncHandler(async (req, res) => {
 
   try {
     var message = await Message.create(newMessage);
-    console.log(message, 'message')
-
     // message = await message.populate("sender", "name pic").execPopulate();
     // message = await message.populate("chat").execPopulate();
     message = await message.populate("sender", "name pic");
@@ -48,10 +44,6 @@ const sendMessage = asyncHandler(async (req, res) => {
       path: "chat.users",
       select: "name pic email",
     });
-    console.log(message, 'nextmessage')
-
-
-
 
     await Chat.findByIdAndUpdate(req.body.chatId, { latestMessage: message });
 

@@ -62,7 +62,7 @@ io.on("connection", (socket) => {
 
   socket.on("join chat", (room) => {
     socket.join(room);
-    console.log("User Joined Room: " + room);
+    // console.log("User Joined Room: " + room);
   });
   socket.on("typing", (room) => socket.in(room).emit("typing"));
   socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
@@ -87,3 +87,37 @@ io.on("connection", (socket) => {
 
   
   
+// const { MessageEmbed} = require("discord.js");
+// const {red_light} = require("../../other/colors.json");
+// const Channel = require('../../models/ModerationModel.js');
+
+// module.exports = async (bot, ban) => {
+//     const guildDB = await Channel.findOne({
+//        guildId: ban.guild.id
+//      }, async (err, guild) => {
+//        if(err) console.error(err)
+
+//        if (!guild) {
+//          const newGuild = new Channel({
+//            guildId: ban.guild.id,
+//            modChannel: null,
+//            msgChannel: null
+//          });
+//          await newGuild.save().then(result => console.log(result)).catch(err => console.error(err)); 
+//        }
+//      });   
+
+//     const modChannel = ban.guild.channels.cache.get(guildDB.modChannel); 
+
+//   if (!modChannel) {
+//     return console.log(`No message channel found`);
+//   }
+//   let mEmbed = new MessageEmbed()
+//   .setAuthor(`Member Unbanned`, ban.user.displayAvatarURL({dynamic : true}))
+//   .setColor(red_light)
+//   .setDescription(`${ban.user} ${ban.user.tag}`)
+//   .setThumbnail(`${ban.user.displayAvatarURL({dynamic : true})}`)
+//   .setFooter(`ID: ${ban.user.id}`)
+//   .setTimestamp()
+//   modChannel.send({embeds:[mEmbed]});
+// }

@@ -55,7 +55,6 @@ const accessChat = asyncHandler(async (req, res) => {
 //@route           GET /api/chat/
 //@access          Protected
 const fetchChats = asyncHandler(async (req, res) => {
-  console.log(req.user._id, 'fetch chats')
   try {
     Chat.find({ users: { $elemMatch: { $eq: req.user?._id } } })
       .populate("users", "-password")
